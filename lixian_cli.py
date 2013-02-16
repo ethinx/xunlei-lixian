@@ -158,12 +158,12 @@ def download_single_task(client, download, task, options):
 				raise Exception('hash check failed')
 	download_url = str(task['xunlei_url'])
 	if output:
-		output_path = output
+		output_path = os.path.expanduser(output)
 		output_dir = os.path.dirname(output)
 		output_name = os.path.basename(output)
 	else:
 		output_name = escape_filename(task['name']).encode(default_encoding)
-		output_dir = output_dir or '.'
+		output_dir = os.path.expanduser(output_dir) if output_dir is not None else '.'
 		output_path = os.path.join(output_dir, output_name)
 	referer = str(client.get_referer())
 	gdriveid = str(client.get_gdriveid())
